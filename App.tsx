@@ -12,6 +12,7 @@ import { RootStackParamList, TabParamList } from "./types/navigation";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { SettingsScreen } from "./screens/Settings";
 import { Ionicons } from "@expo/vector-icons";
+import { ChatScreen } from "./screens/Chat";
 
 SplashScreen.preventAutoHideAsync();
 const Stack = createStackNavigator<RootStackParamList>();
@@ -96,6 +97,11 @@ export default function App() {
             options={{
               headerShown: false,
             }}
+          />
+          <Stack.Screen
+            name="Chat"
+            component={ChatScreen}
+            options={{ headerTitle: "Chat" }}
           />
           <Stack.Screen
             name="ChatSettings"

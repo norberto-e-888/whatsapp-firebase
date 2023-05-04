@@ -1,17 +1,19 @@
-import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { Text, View, StyleSheet, Button } from "react-native";
 import { TabParamList } from "../types/navigation";
+import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 
-type Props = BottomTabScreenProps<TabParamList, "ChatList">;
+type Props = BottomTabScreenProps<TabParamList, "Chat">;
 
-export const ChatListScreen = (props: Props) => {
+export const ChatScreen = (props: Props) => {
   return (
     <View style={styles.container}>
-      <Text>Chat List</Text>
+      <Text>Chat {props.route.params.chatId}</Text>
       <Button
-        title="Go to chat"
+        title="Go to settings"
         onPress={() => {
-          props.navigation.navigate("Chat", { chatId: "1" });
+          props.navigation.navigate("ChatSettings", {
+            chatId: props.route.params.chatId,
+          });
         }}
       />
     </View>
