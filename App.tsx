@@ -13,6 +13,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { SettingsScreen } from "./screens/Settings";
 import { Ionicons } from "@expo/vector-icons";
 import { ChatScreen } from "./screens/Chat";
+import { AuthScreen } from "./screens/Auth";
 
 SplashScreen.preventAutoHideAsync();
 const Stack = createStackNavigator<RootStackParamList>();
@@ -49,6 +50,7 @@ const TabNavigator = () => {
 
 export default function App() {
   const [appIsLoaded, setAppIsLoaded] = useState(false);
+  const [isAuth, setIsAuth] = useState(false);
 
   useEffect(() => {
     const prepare = async () => {
@@ -90,25 +92,29 @@ export default function App() {
   return (
     <SafeAreaProvider style={styles.container} onLayout={onLayout}>
       <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Home"
-            component={TabNavigator}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="Chat"
-            component={ChatScreen}
-            options={{ headerTitle: "Chat" }}
-          />
-          <Stack.Screen
-            name="ChatSettings"
-            component={ChatSettingsScreen}
-            options={{ headerTitle: "Chat Settings" }}
-          />
-        </Stack.Navigator>
+        {isAuth && (
+          <Stack.Navigator>
+            <Stack.Screen
+              name="Home"
+              component={TabNavigator}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Chat"
+              component={ChatScreen}
+              options={{ headerTitle: "Chat" }}
+            />
+            <Stack.Screen
+              name="ChatSettings"
+              component={ChatSettingsScreen}
+              options={{ headerTitle: "Chat Settings" }}
+            />
+          </Stack.Navigator>
+        )}
+
+        {!isAuth && <AuthScreen />}
       </NavigationContainer>
     </SafeAreaProvider>
   );
